@@ -1,0 +1,10 @@
+<p>Details of project id {{projectId}}</p>
+<button (click)="onNextProject()" class="btn btn-primary">Next project</button>
+
+<br />
+<br />
+<button class="btn btn-info" routerLink="/details-project/1">1</button>
+<button class="btn btn-info" routerLink="/details-project/2">2</button>
+<button class="btn btn-info" routerLink="/details-project/3">3</button>
+<button class="btn btn-info" [routerLink]="['/details-project', '4']">4</button>
+

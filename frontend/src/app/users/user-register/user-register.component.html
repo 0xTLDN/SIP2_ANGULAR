@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-6 m-auto">
+    <div class="card m-auto">
+      <div class="card-header">
+        Register
+      </div>
+      <div class="card-body">
+        <!--Bind the form to the reactive form registrationForm in the TS file-->
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+          <div class="form-group col-12">
+            <label for="name" class="form-label">Name</label>
+            <!--formControlName is used to bind our input with the FormControl in the Ts file-->
+            <input type="text" class="form-control" formControlName="userName">
+            <!--Can use the getter method to call directely the correct control (both method shown here)-->
+            <span class="error-block" *ngIf="!registrationForm.get('userName').valid && (userName.touched || userSubmitted)">
+              Name is required
+            </span>
+          </div>
+
+          <div class="form-group col-12">
+            <label for="email" class="form-label">Email</label>
+            <input type="text" class="form-control" formControlName="email">
+            <!--Multiple error handling in reactive forms-->
+            <span class="error-block" *ngIf="!email.valid && (email.touched || userSubmitted)">
+              <span *ngIf="email.hasError('required')">
+                Email is required
+              </span>
+              <span *ngIf="email.hasError('email')">
+                Email is not valid
+              </span>
+            </span>
+          </div>
+
+          <div class="form-group col-12">
+            <label for="passwrod" class="form-label">Password</label>
+            <input type="password" class="form-control" formControlName="password">
+            <span class="error-block" *ngIf="!password.valid && (password.touched || userSubmitted)">
+              <span *ngIf="password.hasError('required')">
+                Password is required
+              </span>
+              <span *ngIf="password.hasError('minlength')">
+                Password is not long enough
+              </span>
+            </span>
+          </div>
+
+          <div class="form-group col-12">
+            <label for="cpassword" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" formControlName="passwordConfirm">
+            <span class="error-block" *ngIf="!passwordConfirm.valid && (passwordConfirm.touched || userSubmitted)">
+              Password is required
+            </span>
+            <span class="error-block" *ngIf="passwordConfirm.valid && registrationForm.hasError('notmatched')">
+              Passwords does not match
+            </span>
+          </div>
+
+          <div class="form-group col-12">
+            <label for="mobile" class="form-label">Mobile</label>
+            <input type="text" class="form-control" formControlName="mobile">
+          </div>
+
+          <div class="form-group col-12">
+            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="reset" class="btn btn-secondary ml-2">Cancel</button>
+          </div>
+          Form Values : {{registrationForm.value |json}} <br />
+          Form Validity : {{registrationForm.valid |json}}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

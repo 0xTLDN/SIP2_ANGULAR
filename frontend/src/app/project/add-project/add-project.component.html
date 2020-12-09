@@ -1,0 +1,39 @@
+<div class="card">
+  <div class="card-header">
+    Add a new project
+  </div>
+  <div class="card-body">
+    <!--ngForm is a directive from FormsModule and provide a Javascript representation of our form
+    The value is passed to the function onSubmit so we can access all properties of the form-->
+    <form (ngSubmit)="onSubmit(Form)" #Form="ngForm">
+      <div>
+        <tabset>
+          <tab heading="General information" id="tab1">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <!--ngModel is used to get the value from that specific input thanks to the ngForm-->
+              <input type="text" class="form-control" required ngModel name="projectName" #projectNameValue="ngModel" minlength="2" />
+              <!-- multiple errors handling -->
+              <span *ngIf="!projectNameValue.valid && projectNameValue.touched" class="error-block">
+                <span *ngIf="projectNameValue.errors.required">Name is required</span>
+                <span *ngIf="projectNameValue.errors.minlength">Name must be at least 2 characters long</span>
+              </span>
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <input type="text" class="form-control" ngModel name="projectDescription" />
+            </div>
+          </tab>
+          <tab heading="Advance details"></tab>
+          <tab heading="Team"></tab>
+        </tabset>
+      </div>
+
+      
+      <button [disabled]="!Form.valid" class="btn btn-primary mr-2" type="submit">Save</button>
+      <button class="btn btn-danger" type="reset">Reset</button>
+    </form>
+  </div>
+</div>
+<br />
+<button class="btn btn-primary " (click)="onBack()">Back</button>
